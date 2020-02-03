@@ -22,7 +22,8 @@
         ;;       :step pre)
         (xelb :location elpa)
         (exwm :location elpa)
-        desktop-environment
+        ;; desktop-environment
+        (desktop-environment (recipe :fetcher github :repo "timor/desktop-environment"))
         ))
 
 (defun exwm/init-desktop-environment ()
