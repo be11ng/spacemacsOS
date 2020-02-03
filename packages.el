@@ -39,17 +39,19 @@
         :evil-leader "TD")
       (add-hook 'desktop-environment-mode-hook 'exwm//update-desktop-mode-bindings))
     :config
-    ;; Override desktop-environment mode's cleverness in favor of our own hook,
-    ;; which make bindings available using prefix keys instead, since we are
-    ;; always in line mode
-    (define-advice desktop-environment-exwm-set-global-keybindings (:override () exwm-disable-global-de-input-keys)
-      nil)
     (progn
+      ;; HACK:
+      ;; Override desktop-environment mode's cleverness in favor of our own hook,
+      ;; which make bindings available using prefix keys instead, since we are
+      ;; always in line mode
+      (define-advice desktop-environment-exwm-set-global-keybindings (:override () exwm-disable-global-de-input-keys)
+        nil)
+
       ;; We disable desktop-environment's locking functionality for 2 reasons:
       ;; 1. s-l is needed for window manipulation
       ;; 2. desktop-environment's locking mechanism does not support registering as session manager
-      ;; TODO: To be completely consistent, we should our own locking stuff also under this toggle
-      ;; The following line would instead their locking command on the default binding:
+      ;; TODO: To be completely consistent, we should put our own locking stuff also under this toggle
+      ;; The following line would instead assign their locking command to the default binding:
       ;; (define-key desktop-environment-mode-map (kbd "<s-pause>") (lookup-key desktop-environment-mode-map (kbd "s-l")))
       (define-key desktop-environment-mode-map (kbd "s-l") nil))))
 
