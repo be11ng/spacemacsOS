@@ -206,3 +206,11 @@ Can show completions at point for COMMAND using helm or ivy"
                           (lambda()
                             (message "Lock signal received")
                             (start-process-shell-command "session-lock" nil exwm-locking-command)))))
+
+;;  Desktop Mode global keybindings
+(defun exwm//update-desktop-mode-bindings ()
+  (map-keymap (lambda (event value)
+                (setq exwm-input-prefix-keys (if desktop-environment-mode
+                                                 (cons event exwm-input-prefix-keys)
+                                               (delq event exwm-input-prefix-keys))))
+              desktop-environment-mode-map))
